@@ -1,0 +1,4 @@
+GET http://localhost:8080/books/1
+
+###
+GET http://localhost:8080/books/getFromXML

@@ -1,0 +1,42 @@
+
+APP:
+read from xml files
+read xml - transform into classes
+put in DB
+
+
+1.JAXB
+package com.jfj.bookmodel:
+classes inside were made by jaxb (with settings in pom.xml) during "mvn clean/package"
+
+need to have:
+BookCatalog.xsd
+pom.xml - jaxb, jaxb-api, javaee-web-api
+
+2.ПАРАМЕТРЫ
+application.properties (k-v)
+application.yml (yml)
+
+одно и тоже - разные форматы описания одних и тех же настроек
+
+3.БД
+для общения с бд спрингу нужно:
+spring-boot-starter-web (pom.xml)
+postgresql (pom.xml)
+
+BookEntity - описание сущности (@Entity, @Table)
+BookRepository extends CrudRepository<BookEntity, Long> (@Repository)
+BookService - класс с логикой, который вызывает методы BookRepository и обрабатывает их (@Component)
+
+4.ПАКЕТЫ
+класс с main  методом должен быть в пакете, в корне (com.jfj), с остальными пакетами (db, entities etc.),
+тогда спринг будет смотреть какие бины нужны в пакете где main и во всех что ниже.
+
+если этот порядок нарушен - надо сказать спрингу, какие пакеты сканировать. вот так:
+@SpringBootApplication(scanBasePackages = {"com.jfj.controller", "com.jfj.service", "com.jfj.db", "com.jfj.entities"})
+public class Main { ...
+
+5.XMLHandler
+Нужны:
+зависимости jaxb (те же, что и для чтения xsd)
+указание классов - JAXBContext.newInstance(BookCatalogue.class, Book.class, Cost.class)
