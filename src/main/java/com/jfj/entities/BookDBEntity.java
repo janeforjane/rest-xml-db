@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "books")
-public class BookEntity {
+public class BookDBEntity {
     @Id
 //    @Column(name = "id", nullable = false)
     private Long id;
@@ -22,7 +22,7 @@ public class BookEntity {
     private int cost;
     private String currency;
 
-    public BookEntity() {
+    public BookDBEntity() {
 
     }
 
@@ -90,7 +90,7 @@ public class BookEntity {
         this.currency = currency;
     }
 
-    public BookEntity(String title, String author, short date, String isbn, String publisher, int cost, String currency) {
+    public BookDBEntity(String title, String author, short date, String isbn, String publisher, int cost, String currency) {
         this.title = title;
         this.author = author;
         this.date = date;
@@ -105,7 +105,7 @@ public class BookEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BookEntity that = (BookEntity) o;
+        BookDBEntity that = (BookDBEntity) o;
 
         if (date != that.date) return false;
         if (cost != that.cost) return false;
@@ -128,5 +128,19 @@ public class BookEntity {
         result = 31 * result + cost;
         result = 31 * result + (currency != null ? currency.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "BookDBEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", date=" + date +
+                ", isbn='" + isbn + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", cost=" + cost +
+                ", currency='" + currency + '\'' +
+                '}';
     }
 }

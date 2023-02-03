@@ -2,6 +2,7 @@ package com.jfj.db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -15,10 +16,10 @@ public class HikariCPDataSource {
      * host,port, login, password - can be in app.yml
      * and provide here by @Value annotation
      */
-//    @Value("${host}")
-//    private final String host;
-//    @Value("${port}")
-//    private final int port;
+//    @Value("${spring.datasource.host}")
+//    private String host;
+//    @Value("${spring.datasource.port}")
+//    private int port;
 
     private static HikariConfig config = new HikariConfig();
     private static HikariDataSource ds;

@@ -1,7 +1,7 @@
 package com.jfj.service;
 
 import com.jfj.db.BookRepository;
-import com.jfj.entities.BookEntity;
+import com.jfj.entities.BookDBEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,20 +16,20 @@ public class BookServiceImpl implements BookService{
     BookRepository bookRepository;
 
     @Override
-    public List<BookEntity> findAllBooks() {
+    public List<BookDBEntity> findAllBooks() {
 
-        List<BookEntity> bookList = new ArrayList<>();
+        List<BookDBEntity> bookList = new ArrayList<>();
 
-        Iterable<BookEntity> bookEntities = bookRepository.findAll();
+        List<BookDBEntity> bookEntities = (List<BookDBEntity>) bookRepository.findAll();
 
 //        return bookRepository.findAll();
-        return null;
+        return bookEntities;
     }
 
     @Override
-    public BookEntity findById(long id) {
+    public BookDBEntity findById(long id) {
 
-        Optional<BookEntity> bookEntity = bookRepository.findById(id);
+        Optional<BookDBEntity> bookEntity = bookRepository.findById(id);
 
         if(bookEntity.isPresent()){
             return bookEntity.get();
@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public BookEntity insert(BookEntity book) {
+    public BookDBEntity insert(BookDBEntity book) {
 
         return bookRepository.save(book);
     }

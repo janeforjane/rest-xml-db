@@ -1,4 +1,18 @@
-GET http://localhost:8080/books/1
+GET http://localhost:8080/books
 
 ###
 GET http://localhost:8080/books/getFromXML
+
+###
+POST http://localhost:8080/books/postBook
+Content-Type: application/json
+
+{
+  "title": "Yogasana Vijnana: the Science of Yoga",
+  "author": "Dhirendra Brahmachari",
+  "date": "1966",
+  "isbn": "27831",
+  "publisher": "Dhirendra Yoga Publications",
+  "cost": "10",
+  "currency": "USD"
+}

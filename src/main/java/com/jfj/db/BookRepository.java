@@ -1,19 +1,19 @@
 package com.jfj.db;
 
-import com.jfj.entities.BookEntity;
+import com.jfj.entities.BookDBEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface BookRepository extends CrudRepository<BookEntity, Long> {
+public interface BookRepository extends CrudRepository<BookDBEntity, Long> {
 
-//    List<BookEntity> findAll();
+//    List<BookDBEntity> findAll();
 
-//    List<BookEntity> findAllById();
+//    List<BookDBEntity> findAllById();
 
-    Optional<BookEntity> findById(long id);
+    Optional<BookDBEntity> findById(long id);
 
 
 }

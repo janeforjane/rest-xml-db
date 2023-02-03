@@ -1,7 +1,10 @@
 package com.jfj.controller;
 
+import com.jfj.bookmodel.Book;
 import com.jfj.bookmodel.BookCatalogue;
-import com.jfj.entities.BookEntity;
+import com.jfj.entities.BookDBEntity;
+import com.jfj.entities.JsonBookEntity;
+import com.jfj.mapper.BookMapper;
 import com.jfj.service.XMLHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,23 +28,32 @@ public class BookController {
     @Autowired
     XMLHandler xmlHandler;
 
+    @Autowired
+    BookMapper mapper;
+
 
     @GetMapping("")
-    public List<BookEntity> getAllPeople() {
-        return bookService.findAllBooks();
+    public ResponseEntity getAllBooks() {
+//        return bookService.findAllBooks();
+        return new ResponseEntity<>(bookService.findAllBooks(),HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public BookEntity getBook(@PathVariable long id){
+    public BookDBEntity getBook(@PathVariable long id){
         return bookService.findById(id);
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> addBook(@RequestBody BookEntity book){
+    @PostMapping("postBook")
+    public ResponseEntity<?> addBook(@RequestBody JsonBookEntity book){
+
+        System.out.println("i'm here");
+        System.out.println(book.toString());
 
 
         if(book != null){
-            bookService.insert(book);
+            BookDBEntity transformed = mapper.transform(book);
+            transformed.setId((long)2);
+            bookService.insert(transformed);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
 
@@ -56,6 +68,13 @@ public class BookController {
         is = new FileInputStream("BookCatalog.xml");
 
         BookCatalogue bookCatalogue = xmlHandler.readXML(is);
+
+        for (Book book : bookCatalogue.book) {
+
+            BookDBEntity bookDBEntity = mapper.transformBook(book);
+
+            System.out.println(bookDBEntity);
+        }
 
         is.close();
 
